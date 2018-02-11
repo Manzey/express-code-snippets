@@ -1,0 +1,39 @@
+body {
+    background-image: url("../images/background.jpg");
+    background-repeat: no-repeat, repeat;
+    }
+
+
+
+/*
+* CSS for login & register
+*/
+
+#registerError {
+    color: red;
+    font-size: 20px;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    padding-bottom: 5px;
+}
+
+.centerBoxWrapper {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20%;
+    height: 20%;
+    background-color: slategray;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+    
+}
+
+.centerBoxContent {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%) }
+}

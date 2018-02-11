@@ -1,0 +1,19 @@
+<div class="centerBoxWrapper">
+    <div class="centerBoxContent">
+    <h2>Register</h2>
+    <div id="registerError">{{registerError}}</div>
+    <form method="post" action="/register" novalidate>
+        <div class="form-field">
+        <label for="username">Username:</label>
+        <input class="input" id="regUsername" name="username" value="{{username}}" /><br>
+        <label for="password">Password:</label>
+        <input class="input" id="regPassword" name="password" type="password" value="{{password}}" /><br>
+        <label for="password">Confirm password:</label>
+        <input class="input" id="regConfirmPass" name="confirmPass" type="password" value="{{confirmPass}}" />
+        </div>
+        <div class="form-actions">
+        <button class="btn" type="submit">Register</button>
+        </div>
+    </form>
+    </div>
+</div>

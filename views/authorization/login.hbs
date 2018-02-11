@@ -1,0 +1,17 @@
+<div class="centerBoxWrapper">
+    <div class="centerBoxContent">
+    <h2>Login</h2>
+    <form method="post" action="/login" novalidate>
+        <div class="form-field">
+        <label for="username">Username:</label>
+        <input class="input" id="username" name="username" value="{{username}}" /><br>
+        <label for="password">Password:</label>
+        <input class="input" id="password" name="password" type="password" value="{{password}}" />
+        </div>
+        <div class="form-actions">
+        <button class="btn" type="submit">Send</button>
+        </div>
+    </form>
+    <a href="/register">Register</a>
+    </div>
+</div>
