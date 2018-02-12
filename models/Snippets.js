@@ -1,11 +1,16 @@
 let mongoose = require("mongoose");
+let moment = require("moment");
 
-let userSchema = new mongoose.Schema({
+let snippetSchema = new mongoose.Schema({
     username: {
         type: String,
         required: "`{PATH}` is required!"
     },
-    password: {
+    snippetTitle: {
+        type: String,
+        required: "`{PATH}` is required!"
+    },
+    snippet: {
         type: String,
         required: "`{PATH}` is required!"
     },
@@ -21,7 +26,7 @@ let userSchema = new mongoose.Schema({
 });
 
 // Create a model using the schema.
-let Users = mongoose.model("Users", userSchema);
+let Snippets = mongoose.model("Snippets", snippetSchema);
 
 // Export the model.
-module.exports = Users;
+module.exports = Snippets;

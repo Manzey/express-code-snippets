@@ -1,0 +1,18 @@
+<link href="../stylesheets/style.css" rel="stylesheet">
+<div class="centerBoxWrapper" id="createSnippetsBox">
+    <div id="createSnippetContent" >
+        <h2>Create snippets</h2>
+        <form method="post" action="/snippets/create" id="snippetForm" novalidate>
+            <div class="form-field">
+                <label for="title">Title:</label>
+                <input class="input" id="snippetTitle" name="title" value="Title here..." /><br>
+                <label for="snippet">Snippet:</label><br>
+                <textarea id="snippetTextarea" name="snippet" form="snippetForm" >Enter text here...</textarea>
+                <br>
+            </div>
+            <div class="form-actions">
+                <button class="btn" type="submit">Send</button>
+            </div>
+        </form>
+    </div>
+</div>

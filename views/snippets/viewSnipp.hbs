@@ -1,0 +1,13 @@
+<div class="centerBoxWrapper" id="viewSnippetsBox">
+    <div id="viewBoxContent">
+    <h2>View snippets</h2>
+    {{#if snippets }}
+    <dl>
+        {{#each snippets}}
+            <dt><a href="/snippets:{{this._id}}">{{this.username}} - {{this.snippetTitle}}</a></dt>
+        {{/each}}
+    </dl>
+    {{/if}}
+    <a href="/snippets/create">Create Snippet</a>    
+    </div>
+</div>
