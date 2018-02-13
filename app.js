@@ -2,10 +2,11 @@ let express      = require('express');
 let path         = require("path");
 let session      = require("express-session");
 let bodyParser   = require("body-parser");
-let router       = require('./routes/index')
+let router       = require('./routes/index');
 let exphbs       = require("express-handlebars");
 let mongoose     = require("./config/mongoose.js");
 let app          = express();
+
 
 // Database connection
 mongoose();

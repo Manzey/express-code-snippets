@@ -2,6 +2,7 @@
     <div class="centerBoxContent" >
     <h2>Login</h2>
     <form method="post" action="/login" novalidate>
+        <div id="loginError">{{loginError}}</div>
         <div class="form-field">
         <label for="username">Username:</label>
         <input class="input" id="username" name="username" value="{{username}}" /><br>

@@ -1,8 +1,9 @@
 <div class="centerBoxWrapper" id="viewSpecificWrapper">
 <div id="viewSnippetContent" >
+    <div id="updateError">{{updateError}}</div>
     {{#if snippets }}
     <dl>
-        {{#each snippets}}
+        {{#each snippets}}                
                 <label for="title">Title:</label>
             <input class="input" id="snippetTitle" name="title" value="{{this.snippetTitle}}" form="updateSnippet"/><br>         
             <textarea id="viewSnippetTextarea" name="snippet" form="updateSnippet">{{this.snippet}}</textarea><br>

@@ -1,5 +1,4 @@
 let mongoose = require("mongoose");
-let moment = require("moment");
 
 let snippetSchema = new mongoose.Schema({
     username: {
