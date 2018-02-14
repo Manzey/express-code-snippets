@@ -10,12 +10,14 @@
             {{this.username}} - {{this.createdAt}}<br>
             Last modified: 
             {{#if this.updatedAt}}
-                {{this.updatedAt}}
+                {{this.updatedAt}} {{owner}}
             {{else}}
-                N/A
+                N/A {{owner}}
             {{/if}}
             <br>
             <div id="viewSnippetButtons">
+                
+                {{#unless owner}}
                 <a href="/snippets"><button class="snippetButton" type="submit">Back</button></a>
                 <form method="post" action="/snippets/delete{{this._id}}" novalidate>
                 <button class="snippetButton" type="submit">Delete</button>
@@ -23,7 +25,9 @@
                 <form method="post" action="/snippets/update{{this._id}}" id="updateSnippet" novalidate>
                 <button class="snippetButton" type="submit">Update</button>
                 </form>
-                
+                {{else}}
+                <a href="/snippets"><button class="snippetButton" type="submit">Back</button></a>
+                {{/unless}}
             </div>
         {{/each}}
     </dl>

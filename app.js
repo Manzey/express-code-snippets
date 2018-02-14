@@ -5,6 +5,9 @@ let bodyParser   = require("body-parser");
 let router       = require('./routes/index');
 let exphbs       = require("express-handlebars");
 let mongoose     = require("./config/mongoose.js");
+//var flash = require('express-flash-messages')
+let flash = require('express-flash-notification');
+
 let app          = express();
 
 
@@ -14,7 +17,16 @@ mongoose();
 
 app.engine(".hbs", exphbs({
     defaultLayout: "default",
-    extname: ".hbs"
+    extname: ".hbs",
+    helpers: {
+        ifvalue: function (conditional, options) {
+            if (options.hash.value === conditional) {
+              return options.fn(this)
+            } else {
+              return options.inverse(this);
+            }
+          }
+    }
 
 }));
 app.set("view engine", ".hbs");
@@ -22,6 +34,13 @@ app.set("view engine", ".hbs");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(session({
+    secret: 'stargate-secret-phrase-tealc-huehue',
+    resave: false,
+    saveUninitialized: false
+  }))
+app.use(flash(app))
+
 
 app.use('/', router)
 
