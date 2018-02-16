@@ -1,36 +1,30 @@
 <div class="centerBoxWrapper" id="viewSpecificWrapper">
 <div id="viewSnippetContent" >
-    <div id="updateError">{{updateError}}</div>
-    {{#if snippets }}
-    <dl>
-        {{#each snippets}}                
-                <label for="title">Title:</label>
-            <input class="input" id="snippetTitle" name="title" value="{{this.snippetTitle}}" form="updateSnippet"/><br>         
-            <textarea id="viewSnippetTextarea" name="snippet" form="updateSnippet">{{this.snippet}}</textarea><br>
-            {{this.username}} - {{this.createdAt}}<br>
+    <dl>               
+            <label for="title">Title:</label>
+            <input class="input" id="snippetTitle" name="title" value="{{snippet.snippetTitle}}" form="updateSnippet"/><br>         
+            <textarea id="viewSnippetTextarea" name="snippet" form="updateSnippet">{{snippet.snippet}}</textarea><br>
+            {{snippet.username}} - {{snippet.createdAt}}<br>
             Last modified: 
-            {{#if this.updatedAt}}
-                {{this.updatedAt}} {{owner}}
+            {{#if snippet.updatedAt}}
+                {{snippet.updatedAt}} {{snippet.owner}}
             {{else}}
-                N/A {{owner}}
+                N/A {{snippet.owner}}
             {{/if}}
-            <br>
-            <div id="viewSnippetButtons">
-                
-                {{#unless owner}}
+            <br>            
+            <div id="viewSnippetButtons">                
+                {{#ifvalue owner value=true}}
                 <a href="/snippets"><button class="snippetButton" type="submit">Back</button></a>
-                <form method="post" action="/snippets/delete{{this._id}}" novalidate>
+                <form method="post" action="/snippets/delete{{snippet._id}}" novalidate>
                 <button class="snippetButton" type="submit">Delete</button>
                 </form>
-                <form method="post" action="/snippets/update{{this._id}}" id="updateSnippet" novalidate>
+                <form method="post" action="/snippets/update{{snippet._id}}" id="updateSnippet" novalidate>
                 <button class="snippetButton" type="submit">Update</button>
                 </form>
                 {{else}}
                 <a href="/snippets"><button class="snippetButton" type="submit">Back</button></a>
-                {{/unless}}
+                {{/ifvalue}}
             </div>
-        {{/each}}
     </dl>
-    {{/if}}
     </div>
 </div>

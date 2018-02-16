@@ -1,7 +1,6 @@
 <div class="centerBoxWrapper">
     <div class="centerBoxContent">
     <h2>Register</h2>
-    <div id="registerError">{{registerError}}</div>
     <form method="post" action="/register" novalidate>
         <div class="form-field">
         <label for="username">Username:</label>
@@ -12,7 +11,7 @@
         <input class="input" id="regConfirmPass" name="confirmPass" type="password" value="{{confirmPass}}" />
         </div>
         <div class="form-actions">
-        <button class="btn" type="submit">Register</button>
+        <button class="btn" type="submit">Register</button><a href="/"><button class="btn" type="button">Back</button></a>
         </div>
     </form>
     </div>

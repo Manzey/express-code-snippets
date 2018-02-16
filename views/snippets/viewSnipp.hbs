@@ -2,12 +2,17 @@
     <div id="viewBoxContent">
     <h2>View snippets</h2>
     {{#if snippets }}
-    <dl>
+    <dl id="snippets">
         {{#each snippets}}
-            <dt><a href="/snippets:{{this._id}}">{{this.username}} - {{this.snippetTitle}}</a></dt>
+            <dt><a class="snippetLinks" href="/snippets:{{this._id}}">{{this.username}} | {{this.snippetTitle}}</a></dt>
         {{/each}}
     </dl>
     {{/if}}
-    <a href="/snippets/create">Create Snippet</a>    
+    <a href="/snippets/create"><button class="btn" type="submit">Create Snippet</button></a>
+    {{#ifvalue loggedIn value=true}}
+    <a href="/logout"><button class="btn" type="submit">Logout</button></a>  
+    {{else}}
+    <a href="/"><button class="btn" type="submit">Login</button></a>  
+    {{/ifvalue}}  
     </div>
 </div>
