@@ -16,10 +16,18 @@ router.get('/', function (req, res) {
     Users.find({'username': req.body.username.toLowerCase()}).exec().then(function (user) {
       if (user === undefined || user.length === 0) {
             // If user does not exist, say so
-        res.render('authorization/login', {loginError: 'User does not exist!'})
+        const manualRender = req.flash('ERROR', 'User does not exist!', false)
+        manualRender(function (error) {
+          if (error) throw error
+          res.render('authorization/login')
+        })
       } else if (!(passwordHash.verify(req.body.password, user[0].password))) {
             // If password does not match
-        res.render('authorization/login', {loginError: 'Password is wrong!'})
+        const manualRender = req.flash('ERROR', 'Password is wrong!', false)
+        manualRender(function (error) {
+          if (error) throw error
+          res.render('authorization/login')
+        })
       } else {
             // If user exist and password match, login and create session.
         req.session.userID = user[0]._id
@@ -67,6 +75,13 @@ router.get('/register', function (req, res) {
     } else if (req.body.username.length < 5) {
         // Username is too short.
       const manualRender = req.flash('ERROR', 'Username is too short!', false)
+      manualRender(function (error) {
+        if (error) throw error
+        res.render('authorization/register', {username: req.body.username})
+      })
+    } else if (!req.body.username.match(/^[0-9a-z]+$/)) {
+              // Username contains non-alphanumberic characters.
+      const manualRender = req.flash('ERROR', 'Username contains non-alphanumberic characters!', false)
       manualRender(function (error) {
         if (error) throw error
         res.render('authorization/register', {username: req.body.username})
@@ -147,7 +162,12 @@ router.get('/snippets/create', function (req, res) {
 
         // If title are shorter than 5 letters, try again! (Whitespace are excluded)
     if (req.body.title.replace(/\s+/g, '').length < 5) {
-      res.render('snippets/createSnipp', {snippet: req.body.snippet, createError: 'Title is too short! (It must be longer than 5)!'})
+              // Username is too short.
+      const manualRender = req.flash('ERROR', 'Title is too short! (It must be longer than 5)!', false)
+      manualRender(function (error) {
+        if (error) throw error
+        res.render('snippets/createSnipp', {snippet: req.body.snippet})
+      })
     } else {
       let snippet = new Snippets({
         username: usernameUser,

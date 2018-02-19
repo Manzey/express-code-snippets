@@ -7,9 +7,9 @@
             <dt><a class="snippetLinks" href="/snippets:{{this._id}}">{{this.username}} | {{this.snippetTitle}}</a></dt>
         {{/each}}
     </dl>
-    {{/if}}
-    <a href="/snippets/create"><button class="btn" type="submit">Create Snippet</button></a>
+    {{/if}}    
     {{#ifvalue loggedIn value=true}}
+    <a href="/snippets/create"><button class="btn" type="submit">Create Snippet</button></a>
     <a href="/logout"><button class="btn" type="submit">Logout</button></a>  
     {{else}}
     <a href="/"><button class="btn" type="submit">Login</button></a>  
