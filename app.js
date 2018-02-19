@@ -6,6 +6,7 @@ let router = require('./routes/index')
 let exphbs = require('express-secure-handlebars')
 let mongoose = require('./config/mongoose.js')
 let flash = require('express-flash-notification')
+let helmet = require('helmet')
 let csp = require(`helmet-csp`)
 let app = express()
 
@@ -48,7 +49,8 @@ app.use(session({
     maxAge: 1000 * 60 * 60 * 12 // Cookie will survive for 12 hours.
   }
 }))
-
+// Helmet for setting security headers.
+app.use(helmet())
 // Set the CSP-header for security.
 app.use(csp({
   directives: {
