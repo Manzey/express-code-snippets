@@ -2,7 +2,6 @@ let mongoose = require('mongoose')
 const CONNECTION_STRING = 'mongodb://manzey:sUpErS3cR3tP4ssW0rd132@ds229448.mlab.com:29448/manzey'
 
 module.exports = function () {
-
   mongoose.connection.on('connected', function () {
     console.log('Mongoose connection open.')
   })

@@ -70,7 +70,7 @@ router.get('/register', function (req, res) {
       const manualRender = req.flash('ERROR', 'Username is taken!', false)
       manualRender(function (error) {
         if (error) throw error
-        res.render('authorization/register', {username: req.body.username ,  csrfToken: req.csrfToken() })
+        res.render('authorization/register', {username: req.body.username, csrfToken: req.csrfToken()})
       })
     } else if (req.body.username.length < 5) {
         // Username is too short.
