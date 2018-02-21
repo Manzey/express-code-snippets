@@ -2,6 +2,7 @@
     <div class="centerBoxContent">
     <h2>Register</h2>
     <form method="post" action="/register" novalidate>
+      <input type="hidden" name="_csrf" value="{{csrfToken}}">
         <div class="form-field">
         <label for="username">Username:</label>
         <input class="input" id="regUsername" name="username" value="{{username}}" /><br>

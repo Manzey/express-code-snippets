@@ -3,6 +3,7 @@
     <div id="createSnippetContent" >
         <h2>Create snippets</h2>
         <form method="post" action="/snippets/create" id="snippetForm" novalidate>
+          <input type="hidden" name="_csrf" value="{{csrfToken}}">
             <div class="form-field">
                 <label for="title">Title:</label>
                 <input class="input" id="snippetTitle" name="title" value="Title here..." /><br>

@@ -8,6 +8,7 @@ let mongoose = require('./config/mongoose.js')
 let flash = require('express-flash-notification')
 let helmet = require('helmet')
 let csp = require(`helmet-csp`)
+let csrf = require('csurf')
 let app = express()
 
 /**
@@ -49,6 +50,8 @@ app.use(session({
     maxAge: 1000 * 60 * 60 * 12 // Cookie will survive for 12 hours.
   }
 }))
+// csrf protection
+app.use(csrf({ cookie: false }))
 // Helmet for setting security headers.
 app.use(helmet())
 // Set the CSP-header for security.

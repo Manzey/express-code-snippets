@@ -10,7 +10,7 @@ let Snippets = require('../models/Snippets')
  * Using hash to verify if password is correct.
  */
 router.get('/', function (req, res) {
-  res.render('authorization/login')
+  res.render('authorization/login', { csrfToken: req.csrfToken() })
 })
   .post('/login', function (req, res, next) {
     Users.find({'username': req.body.username.toLowerCase()}).exec().then(function (user) {
@@ -19,14 +19,14 @@ router.get('/', function (req, res) {
         const manualRender = req.flash('ERROR', 'Username or password is wrong!', false)
         manualRender(function (error) {
           if (error) throw error
-          res.render('authorization/login')
+          res.render('authorization/login', { csrfToken: req.csrfToken() })
         })
       } else if (!(passwordHash.verify(req.body.password, user[0].password))) {
             // If password does not match
         const manualRender = req.flash('ERROR', 'Username or password is wrong!', false)
         manualRender(function (error) {
           if (error) throw error
-          res.render('authorization/login')
+          res.render('authorization/login', { csrfToken: req.csrfToken() })
         })
       } else {
             // If user exist and password match, login and create session.
@@ -40,7 +40,7 @@ router.get('/', function (req, res) {
  * Before logging out, you're prompted with a confirmation box. (Yes/no)
  */
 router.get('/logout', function (req, res) {
-  res.render('authorization/logout')
+  res.render('authorization/logout', { csrfToken: req.csrfToken() })
 })
     .post('/logout', function (req, res) {
       req.session.userID = null
@@ -52,7 +52,7 @@ router.get('/logout', function (req, res) {
  * When posting, check if user exists and if password meets criteria, then create the user in the database.
  */
 router.get('/register', function (req, res) {
-  res.render('authorization/register.hbs')
+  res.render('authorization/register.hbs', { csrfToken: req.csrfToken() })
 })
   .post('/register', async function (req, res, next) {
     // Check if username is taken.
@@ -70,35 +70,35 @@ router.get('/register', function (req, res) {
       const manualRender = req.flash('ERROR', 'Username is taken!', false)
       manualRender(function (error) {
         if (error) throw error
-        res.render('authorization/register', {username: req.body.username})
+        res.render('authorization/register', {username: req.body.username ,  csrfToken: req.csrfToken() })
       })
     } else if (req.body.username.length < 5) {
         // Username is too short.
       const manualRender = req.flash('ERROR', 'Username is too short!', false)
       manualRender(function (error) {
         if (error) throw error
-        res.render('authorization/register', {username: req.body.username})
+        res.render('authorization/register', {username: req.body.username, csrfToken: req.csrfToken()})
       })
     } else if (!req.body.username.match(/^[0-9a-z]+$/)) {
               // Username contains non-alphanumberic characters.
       const manualRender = req.flash('ERROR', 'Username contains non-alphanumberic characters!', false)
       manualRender(function (error) {
         if (error) throw error
-        res.render('authorization/register', {username: req.body.username})
+        res.render('authorization/register', {username: req.body.username, csrfToken: req.csrfToken()})
       })
     } else if (password !== confirmPass) {
         // If passwords do not match
       const manualRender = req.flash('ERROR', 'Passwords do not match!', false)
       manualRender(function (error) {
         if (error) throw error
-        res.render('authorization/register', {username: req.body.username})
+        res.render('authorization/register', {username: req.body.username, csrfToken: req.csrfToken()})
       })
     } else if (password.length < 7) {
         // If password length is shorter than 7
       const manualRender = req.flash('ERROR', 'Password is too short!', false)
       manualRender(function (error) {
         if (error) throw error
-        res.render('authorization/register', {username: req.body.username})
+        res.render('authorization/register', {username: req.body.username, csrfToken: req.csrfToken()})
       })
     } else {
         // Create the user.
@@ -142,7 +142,7 @@ router.get('/snippets:id', async function (req, res) {
         }
       }
     })
-    res.render('snippets/viewSpecificSnipp', {snippet: snippet[0], owner: ownSnippet})
+    res.render('snippets/viewSpecificSnipp', {snippet: snippet[0], owner: ownSnippet, csrfToken: req.csrfToken()})
   })
 })
 
@@ -151,7 +151,7 @@ router.get('/snippets:id', async function (req, res) {
  * session is logged in. If it is, create a snippet.
  */
 router.get('/snippets/create', function (req, res) {
-  res.render('snippets/createSnipp')
+  res.render('snippets/createSnipp', { csrfToken: req.csrfToken() })
 })
 .post('/snippets/create', async function (req, res) {
   if (!(req.session.userID === undefined || req.session.userID === null)) {
@@ -166,7 +166,7 @@ router.get('/snippets/create', function (req, res) {
       const manualRender = req.flash('ERROR', 'Title is too short! (It must be longer than 5)!', false)
       manualRender(function (error) {
         if (error) throw error
-        res.render('snippets/createSnipp', {snippet: req.body.snippet})
+        res.render('snippets/createSnipp', {snippet: req.body.snippet, csrfToken: req.csrfToken()})
       })
     } else {
       let snippet = new Snippets({

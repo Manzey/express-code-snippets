@@ -16,9 +16,11 @@
                 {{#ifvalue owner value=true}}
                 <a href="/snippets"><button class="snippetButton" type="submit">Back</button></a>
                 <form method="post" action="/snippets/delete{{snippet._id}}" novalidate>
+                  <input type="hidden" name="_csrf" value="{{csrfToken}}">
                 <button class="snippetButton" type="submit">Delete</button>
                 </form>
                 <form method="post" action="/snippets/update{{snippet._id}}" id="updateSnippet" novalidate>
+                <input type="hidden" name="_csrf" value="{{csrfToken}}">
                 <button class="snippetButton" type="submit">Update</button>
                 </form>
                 {{else}}
