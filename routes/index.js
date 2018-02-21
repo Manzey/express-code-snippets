@@ -15,15 +15,15 @@ router.get('/', function (req, res) {
   .post('/login', function (req, res, next) {
     Users.find({'username': req.body.username.toLowerCase()}).exec().then(function (user) {
       if (user === undefined || user.length === 0) {
-            // If user does not exist, say so
-        const manualRender = req.flash('ERROR', 'User does not exist!', false)
+            // If user does not exist
+        const manualRender = req.flash('ERROR', 'Username or password is wrong!', false)
         manualRender(function (error) {
           if (error) throw error
           res.render('authorization/login')
         })
       } else if (!(passwordHash.verify(req.body.password, user[0].password))) {
             // If password does not match
-        const manualRender = req.flash('ERROR', 'Password is wrong!', false)
+        const manualRender = req.flash('ERROR', 'Username or password is wrong!', false)
         manualRender(function (error) {
           if (error) throw error
           res.render('authorization/login')
