@@ -175,7 +175,7 @@ router.get('/snippets/create', function (req, res) {
         snippet: req.body.snippet
       })
       snippet.save()
-      req.flash('SUCCESS', 'You successfully created a snippet with the title "' + req.body.title + '"', '/snippets')
+      req.flash('SUCCESS', 'You successfully created a snippet!', '/snippets')
     }
   } else {
     res.status(403).send("Sorry, you're not authorized to do that!")
@@ -226,7 +226,7 @@ router.post('/snippets/update:id', function (req, res) {
                         { $set: { 'updatedAt': Date.now() } }
                     ).exec()
 
-          req.flash('SUCCESS', 'You successfully updated "' + req.body.title + '"', '/snippets')
+          req.flash('SUCCESS', 'You successfully updated the snippet!', '/snippets')
         } else {
           res.status(403).send("Sorry, you're not authorized to do that!")
         }
