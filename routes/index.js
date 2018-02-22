@@ -1,6 +1,6 @@
 let express = require('express')
 let router = express.Router()
-let passwordHash = require('password-hash')
+let bcrypt = require('bcrypt')
 
 let Users = require('../models/Users')
 let Snippets = require('../models/Snippets')
@@ -14,25 +14,30 @@ router.get('/', function (req, res) {
 })
   .post('/login', function (req, res, next) {
     Users.find({'username': req.body.username.toLowerCase()}).exec().then(function (user) {
-      if (user === undefined || user.length === 0) {
+      bcrypt.compare(req.body.password, user[0].password, function (err, passwordMatches) {
+        if (err) {
+          console.error(err)
+        }
+        if (user === undefined || user.length === 0) {
             // If user does not exist
-        const manualRender = req.flash('ERROR', 'Username or password is wrong!', false)
-        manualRender(function (error) {
-          if (error) throw error
-          res.render('authorization/login', { csrfToken: req.csrfToken() })
-        })
-      } else if (!(passwordHash.verify(req.body.password, user[0].password))) {
+          const manualRender = req.flash('ERROR', 'Username or password is wrong!', false)
+          manualRender(function (error) {
+            if (error) throw error
+            res.render('authorization/login', { csrfToken: req.csrfToken() })
+          })
+        } else if (!passwordMatches) {
             // If password does not match
-        const manualRender = req.flash('ERROR', 'Username or password is wrong!', false)
-        manualRender(function (error) {
-          if (error) throw error
-          res.render('authorization/login', { csrfToken: req.csrfToken() })
-        })
-      } else {
+          const manualRender = req.flash('ERROR', 'Username or password is wrong!', false)
+          manualRender(function (error) {
+            if (error) throw error
+            res.render('authorization/login', { csrfToken: req.csrfToken() })
+          })
+        } else {
             // If user exist and password match, login and create session.
-        req.session.userID = user[0]._id
-        req.flash('SUCCESS', 'You are now logged in!', '/snippets')
-      }
+          req.session.userID = user[0]._id
+          req.flash('SUCCESS', 'You are now logged in!', '/snippets')
+        }
+      })
     })
   })
 /**
@@ -102,11 +107,16 @@ router.get('/register', function (req, res) {
       })
     } else {
         // Create the user.
-      let user = new Users({
-        username: req.body.username.toLowerCase(),
-        password: passwordHash.generate(req.body.password)
+      await bcrypt.hash(req.body.password, 10, function (err, hash) {
+        if (err) {
+          console.error(err)
+        }
+        let user = new Users({
+          username: req.body.username.toLowerCase(),
+          password: hash
+        })
+        user.save()
       })
-      user.save()
       req.flash('SUCCESS', 'You successfully registered your account!<br>Please login to proceed!', '.')
     }
   })
